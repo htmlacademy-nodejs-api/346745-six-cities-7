@@ -1,5 +1,5 @@
-import { User } from './user.type.js';
-import {Amenities, City, HouseType} from './offer-type.enum.js';
+import { TUser } from './user.type.js';
+import { Amenities, City, HouseType } from './offer-type.enum.js';
 
 export type TCoordinates = {
   latitude: number;
@@ -21,8 +21,7 @@ export type TOffer = {
   room: number;
   guests: number;
   price: number;
-  categories: string[];
-  author: User;
-  coordinates: TCoordinates;
   amenities: Amenities;
+  user: TUser;
+  coordinates: TCoordinates;
 }

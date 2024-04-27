@@ -1,6 +1,6 @@
-import {readFileSync} from 'node:fs';
-import {resolve} from 'node:path';
-import {ICommand} from './command.interface.js';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { ICommand } from './command.interface.js';
 
 
 type PackageJSONConfig = {

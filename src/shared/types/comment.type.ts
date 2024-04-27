@@ -1,8 +1,8 @@
-import {User} from './user.type.js';
+import { TUser } from './user.type.js';
 
 export interface IComment {
   text: string;
   publicationDate?: Date;
   rating: number;
-  author: User;
+  author: TUser;
 }
