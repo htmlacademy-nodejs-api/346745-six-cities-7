@@ -4,6 +4,7 @@
 /lib/
 /dist/
 /docs/
+/mocks/mock-server-data.json
 .idea/*
 
 .DS_Store

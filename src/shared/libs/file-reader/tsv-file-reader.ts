@@ -1,27 +1,17 @@
-import { readFileSync } from 'node:fs';
+import EventEmitter from 'node:events';
+import { createReadStream } from 'node:fs';
 
 import { FileReader } from './file-reader.interface.js';
 import { TOffer, TUser } from '../../types/index.js';
 import { Amenities, City, HouseType } from '../../types/offer-type.enum.js';
 
-export class TSVFileReader implements FileReader {
-  private rawData = '';
+export class TSVFileReader extends EventEmitter implements FileReader {
+  private CHUNK_SIZE = 16384; // 16KB
 
   constructor(
     private readonly filename: string
-  ) {}
-
-  private validateRawData(): void {
-    if (! this.rawData) {
-      throw new Error('File was not read');
-    }
-  }
-
-  private parseRawDataToOffers(): TOffer[] {
-    return this.rawData
-      .split('\n')
-      .filter((row) => row.trim().length > 0)
-      .map((line) => this.parseLineToOffer(line));
+  ) {
+    super();
   }
 
   private parseLineToOffer(line: string): TOffer {
@@ -56,8 +46,8 @@ export class TSVFileReader implements FileReader {
       city: City[city as 'Paris' | 'Cologne' | 'Brussels' | 'Amsterdam' | 'Hamburg' | 'Dusseldorf'],
       previewPath,
       imageHouse,
-      premium: premium === 'false',
-      favorites: favorites === 'false',
+      premium: this.parseBoolean(premium),
+      favorites: this.parseBoolean(favorites),
       rating: this.parsePrice(rating),
       typeHouse: typeHouse as HouseType,
       room: this.parsePrice(room),
@@ -65,7 +55,7 @@ export class TSVFileReader implements FileReader {
       price: this.parsePrice(price),
       amenities: amenities as Amenities,
       user: this.parseUser(name, email, avatarPath, password, userType),
-      coordinates: {latitude: this.parsePrice(latitude), longitude: this.parsePrice(longitude)}
+      coordinates: {latitude: Number(latitude), longitude: Number(longitude)}
     };
   }
 
@@ -73,16 +63,36 @@ export class TSVFileReader implements FileReader {
     return Number.parseInt(priceString, 10);
   }
 
+  private parseBoolean(value: string): boolean {
+    return value === 'true';
+  }
+
   private parseUser(name: string, email: string, avatarPath: string, password: string, userType: string): TUser {
     return { name, email, avatarPath, password, userType };
   }
 
-  public read(): void {
-    this.rawData = readFileSync(this.filename, { encoding: 'utf-8' });
-  }
+  public async read(): Promise<void> {
+    const readStream = createReadStream(this.filename, {
+      highWaterMark: this.CHUNK_SIZE,
+      encoding: 'utf-8',
+    });
 
-  public toArray(): TOffer[] {
-    this.validateRawData();
-    return this.parseRawDataToOffers();
+    let remainingData = '';
+    let nextLinePosition = -1;
+    let importedRowCount = 0;
+
+    for await (const chunk of readStream) {
+      remainingData += chunk.toString();
+
+      while ((nextLinePosition = remainingData.indexOf('\n')) >= 0) {
+        const completeRow = remainingData.slice(0, nextLinePosition + 1);
+        remainingData = remainingData.slice(++nextLinePosition);
+        importedRowCount++;
+
+        const parsedOffer = this.parseLineToOffer(completeRow);
+        this.emit('line', parsedOffer);
+      }
+    }
+    this.emit('end', importedRowCount);
   }
 }
