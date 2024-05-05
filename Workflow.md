@@ -56,6 +56,12 @@ npm run lint
 npm run ts -- <Путь к модулю с ts-кодом>
 ```
 
+#### Запустить json-server
+
+```bash
+npm run json-server ./mocks/mock-server-data.json --port <port numbers> --host localhost
+```
+
 Пакет `ts-node` позволяет выполнить TS-код в Node.js без предварительной компиляции. Используется только на этапе разработки.
 
 #### Запустить проект
