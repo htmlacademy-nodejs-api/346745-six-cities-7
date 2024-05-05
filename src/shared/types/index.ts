@@ -3,3 +3,4 @@ export { TOffer } from './offer.type.js';
 export { IComment } from './comment.type.js';
 
 export { TMockServerData } from './mock-server-data.type.js';
+export { Component } from './component.enum.js';
