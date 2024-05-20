@@ -1,9 +1,14 @@
 import { TUser } from './user.type.js';
-import { Amenities, City, HouseType } from './offer-type.enum.js';
+import {Amenities, City, HouseType} from './offer-type.enum.js';
 
 export type TCoordinates = {
   latitude: number;
   longitude: number;
+};
+
+export type TCityCoordinates = {
+  city: string;
+  coordinates: TCoordinates;
 };
 
 

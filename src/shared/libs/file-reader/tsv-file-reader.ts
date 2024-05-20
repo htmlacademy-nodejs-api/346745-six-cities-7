@@ -49,11 +49,11 @@ export class TSVFileReader extends EventEmitter implements FileReader {
       premium: this.parseBoolean(premium),
       favorites: this.parseBoolean(favorites),
       rating: this.parsePrice(rating),
-      typeHouse: typeHouse as HouseType,
+      typeHouse: HouseType[typeHouse as 'Apartment' | 'House' | 'Room' | 'Hotel'],
       room: this.parsePrice(room),
       guests: this.parsePrice(guests),
       price: this.parsePrice(price),
-      amenities: amenities as Amenities,
+      amenities: Amenities[amenities as 'Breakfast' | 'AirConditioning' | 'LaptopFriendlyWorkspace' | 'BabySeat' | 'Washer' | 'Towels' | 'Fridge'],
       user: this.parseUser(name, email, avatarPath, password, userType),
       coordinates: {latitude: Number(latitude), longitude: Number(longitude)}
     };
@@ -90,7 +90,9 @@ export class TSVFileReader extends EventEmitter implements FileReader {
         importedRowCount++;
 
         const parsedOffer = this.parseLineToOffer(completeRow);
-        this.emit('line', parsedOffer);
+        await new Promise((resolve) => {
+          this.emit('line', parsedOffer, resolve);
+        });
       }
     }
     this.emit('end', importedRowCount);
