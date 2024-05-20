@@ -1,5 +1,6 @@
 import { Amenities, City, HouseType } from '../../../types/offer-type.enum.js';
-import { TCoordinates } from '../../../types/offer.type.js';
+import {TCoordinates} from '../../../types/offer.type.js';
+// import { TCoordinates } from '../../../types/offer.type.js';
 
 export class CreateOfferDto {
   public title: string;

@@ -7,7 +7,8 @@ import {
 } from '@typegoose/typegoose';
 import { UserEntity } from '../user/index.js';
 import { Amenities, City, HouseType } from '../../types/offer-type.enum.js';
-import { TCoordinates } from '../../types/offer.type.js';
+import {TCoordinates} from '../../types/offer.type.js';
+// import { TCoordinates } from '../../types/offer.type.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface OfferEntity extends defaultClasses.Base {

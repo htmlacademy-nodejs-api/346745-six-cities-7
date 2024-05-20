@@ -71,6 +71,8 @@ export class ImportCommand implements ICommand {
     await this.databaseClient.connect(uri);
 
     const fileReader = new TSVFileReader(filename.trim());
+    fileReader.on('line', this.onImportedOffer);
+    fileReader.on('end', this.onCompleteImport);
 
     try {
       fileReader.read();
