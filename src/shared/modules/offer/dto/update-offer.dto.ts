@@ -1,7 +1,7 @@
 import { Amenities, City, HouseType } from '../../../types/offer-type.enum.js';
 import {TCoordinates} from '../../../types/offer.type.js';
 
-export class CreateOfferDto {
+export class UpdateOfferDto {
   public title: string;
   public description: string;
   public postDate: Date;
@@ -16,6 +16,5 @@ export class CreateOfferDto {
   public guests: number;
   public price: number;
   public amenities: Amenities;
-  public userId: string;
   public coordinates: TCoordinates;
 }
