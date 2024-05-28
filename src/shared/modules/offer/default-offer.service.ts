@@ -73,4 +73,18 @@ export class DefaultOfferService implements OfferService {
       .populate(['userId'])
       .exec();
   }
+
+  public async updateRating(offerId: string, newRating: number): Promise<DocumentType<OfferEntity> | null> {
+    const update = {
+      $inc: {
+        ratingSum: newRating,
+        ratingCount: 1
+      }
+    };
+    const updatedOffer = await this.offerModel.findByIdAndUpdate(offerId, update, { new: true }).exec();
+    if (updatedOffer) {
+      this.logger.info(`Rating updated for offer ${offerId}: new average rating is ${(updatedOffer.ratingSum / updatedOffer.ratingCount).toFixed(2)}`);
+    }
+    return updatedOffer;
+  }
 }
