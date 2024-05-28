@@ -112,6 +112,12 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop()
   public coordinates!: TCoordinates;
+
+  @prop({ default: 0 })
+  public ratingSum!: number;
+
+  @prop({ default: 0 })
+  public ratingCount!: number;
 }
 
 export const OfferModel = getModelForClass(OfferEntity);
