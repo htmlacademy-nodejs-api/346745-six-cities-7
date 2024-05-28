@@ -15,5 +15,6 @@ export interface OfferService {
   findDiscussed(count: number): Promise<DocumentType<OfferEntity>[]>;
   exists(documentId: string): Promise<boolean>;
   updateRating(offerId: string, newRating: number): Promise<DocumentType<OfferEntity> | null>;
+  decCommentCount(offerId: string, count: number): Promise<void>
 }
 

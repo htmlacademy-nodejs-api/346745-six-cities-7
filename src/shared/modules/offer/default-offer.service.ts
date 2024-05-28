@@ -56,6 +56,13 @@ export class DefaultOfferService implements OfferService {
       }}).exec();
   }
 
+  public async decCommentCount(offerId: string, count: number): Promise<void> {
+    await this.offerModel
+      .findByIdAndUpdate(offerId, { '$inc': {
+        commentCount: -count
+      }}).exec();
+  }
+
   public async findNew(count: number): Promise<DocumentType<OfferEntity>[]> {
     return this.offerModel
       .find()
