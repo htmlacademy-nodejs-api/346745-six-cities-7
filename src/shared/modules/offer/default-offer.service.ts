@@ -8,6 +8,7 @@ import { OfferEntity } from './offer.entity.js';
 import { CreateOfferDto } from './dto/create-offer.dto.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
 
+
 @injectable()
 export class DefaultOfferService implements OfferService {
   constructor(
