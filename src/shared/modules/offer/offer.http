@@ -1,5 +1,5 @@
 # Получить объявление по идентификатору
-GET http://localhost:4000/offers/664d1a74324da7411f936351 HTTP/1.1
+GET http://localhost:4000/offers/6658eb31a402f9bae22438fc HTTP/1.1
 
 ###
 
@@ -20,16 +20,20 @@ Content-Type: application/json
   "postDate": "2022-05-12T11:56:37.573Z",
   "city": "Paris",
   "previewPath": "billy-summers.png",
-  "imageHouse": "billy-summers.png",
+  "previewImage": "billy-summers.png",
+  "rooms": 3,
+  "type": "apartment",
+  "images": ["billy-summers.png", "billy-summers.png", "billy-summers.png", "billy-summers.png", "billy-summers.png", "billy-summers.png"],
   "premium": true,
-  "favorites": true,
-  "rating": 4,
+  "favorite": true,
+  "rating": 1.1,
   "typeHouse": "Room",
   "room": 7,
   "guests": 7,
   "price": 1408,
-  "amenities": "Breakfast",
+  "amenities": ["Breakfast"],
   "userId": "62823cb2c5a64ce9f1b50ec8",
+  "author": true,
   "coordinates": {"latitude":  0.21, "longitude":  0.21}
 }
 
@@ -37,6 +41,15 @@ Content-Type: application/json
 
 ## Удалить объявление по идентификатору
 
-DELETE http://localhost:4000/offers/664d1a74324da7411f936351 HTTP/1.1
+DELETE http://localhost:4000/offers/6668b24a88742aad1dc07d73 HTTP/1.1
 
 ###
+
+PATCH http://localhost:4000/offers/6668b335be7ddc72c71b02d0 HTTP/1.1
+Content-Type: application/json
+
+{
+  "title": "Ночной дозор 3",
+  "description": "Проверка обновления",
+  "price": 1100
+}

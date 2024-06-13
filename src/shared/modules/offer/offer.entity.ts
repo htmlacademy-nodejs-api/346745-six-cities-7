@@ -49,10 +49,10 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public city!: City;
 
   @prop()
-  public previewPath!: string;
+  public previewPath!: string[];
 
   @prop()
-  public imageHouse!: string;
+  public imageHouse!: string[];
 
   @prop()
   public premium!: boolean;
