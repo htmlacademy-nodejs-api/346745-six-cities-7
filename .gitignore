@@ -5,10 +5,10 @@
 /dist/
 /docs/
 /mocks/mock-server-data.json
+/specification/project.spec.yml
 .idea/*
 
 .DS_Store
 coverage
 *.log
 .env
-/specification/

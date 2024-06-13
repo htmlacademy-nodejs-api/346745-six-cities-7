@@ -29,9 +29,9 @@ Content-Type: application/json
   "room": 7,
   "guests": 7,
   "price": 1408,
-  "amenities": ["Breakfast"],
+  "amenities": "Breakfast",
   "userId": "62823cb2c5a64ce9f1b50ec8",
-  "author": true,
+  "author": false,
   "coordinates": {"latitude":  0.21, "longitude":  0.21}
 }
 
