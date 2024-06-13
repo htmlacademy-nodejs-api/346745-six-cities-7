@@ -526,8 +526,10 @@ components:
           minimum: 100
           maximum: 100000
         amenities:
-          type: string
-          enum: [ Breakfast, Air conditioning, Laptop friendly workspace, Baby seat, Washer, Towels, Fridge ]
+          type: array
+          items:
+            type: string
+            enum: [ Breakfast, Air conditioning, Laptop friendly workspace, Baby seat, Washer, Towels, Fridge ]
         author:
           $ref: '#/components/schemas/user'
         coordinates:
@@ -641,8 +643,10 @@ components:
           minimum: 100
           maximum: 100000
         amenities:
-          type: string
-          enum: [ Breakfast, Air conditioning, Laptop friendly workspace, Baby seat, Washer, Towels, Fridge ]
+          type: array
+          items:
+            type: string
+            enum: [ Breakfast, Air conditioning, Laptop friendly workspace, Baby seat, Washer, Towels, Fridge ]
         coordinates:
           $ref: '#/components/schemas/Coordinates'
 
