@@ -467,13 +467,13 @@ components:
         - title
         - description
         - city
-        - previewImage
-        - images
+        - previewPath
+        - imageHouse
         - premium
         - favorite
         - rating
         - type
-        - rooms
+        - room
         - guests
         - price
         - amenities
@@ -491,10 +491,10 @@ components:
         city:
           type: string
           enum: [ Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf ]
-        previewImage:
+        previewPath:
           type: string
           format: uri
-        images:
+        imageHouse:
           type: array
           items:
             type: string
@@ -513,7 +513,7 @@ components:
         type:
           type: string
           enum: [ apartment, house, room, hotel ]
-        rooms:
+        room:
           type: integer
           minimum: 1
           maximum: 8
@@ -560,9 +560,9 @@ components:
           type: string
         city:
           type: string
-        previewImage:
+        previewPath:
           type: string
-        images:
+        imageHouse:
           type: array
           items:
             type: string
@@ -575,7 +575,7 @@ components:
           format: float
         type:
           type: string
-        rooms:
+        room:
           type: integer
         guests:
           type: integer
@@ -632,7 +632,7 @@ components:
         propertyType:
           type: string
           enum: [ apartment, house, room, hotel ]
-        rooms:
+        room:
           type: integer
           minimum: 1
           maximum: 8
