@@ -18,7 +18,7 @@ export type TOffer = {
   postDate: Date;
   city: City;
   previewPath: string;
-  imageHouse: string;
+  imageHouse: string[];
   premium: boolean;
   favorites: boolean;
   rating: number;

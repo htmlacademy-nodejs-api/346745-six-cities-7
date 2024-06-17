@@ -45,7 +45,7 @@ export class TSVFileReader extends EventEmitter implements FileReader {
       postDate: new Date(createdDate),
       city: City[city as City],
       previewPath,
-      imageHouse,
+      imageHouse: [imageHouse as string],
       premium: this.parseBoolean(premium),
       favorites: this.parseBoolean(favorites),
       rating: this.parsePrice(rating),
