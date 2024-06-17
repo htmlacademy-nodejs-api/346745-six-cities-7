@@ -29,7 +29,7 @@ export class RestApplication {
       this.config.get('DB_PASSWORD'),
       this.config.get('DB_HOST'),
       this.config.get('DB_PORT'),
-      this.config.get('DB_NAME')
+      this.config.get('DB_NAME'),
     );
 
     return this.databaseClient.connect(mongoUri);
@@ -48,6 +48,10 @@ export class RestApplication {
 
   private async _initMiddleware() {
     this.server.use(express.json());
+    this.server.use(
+      '/upload',
+      express.static(this.config.get('UPLOAD_DIRECTORY'))
+    );
   }
 
   private async _initExceptionFilters() {

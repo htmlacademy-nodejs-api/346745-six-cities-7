@@ -52,7 +52,7 @@ export class OfferEntity extends defaultClasses.TimeStamps {
   public previewPath!: string;
 
   @prop()
-  public imageHouse!: string;
+  public imageHouse!: string[];
 
   @prop()
   public premium!: boolean;

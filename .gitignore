@@ -5,6 +5,8 @@
 /dist/
 /docs/
 /mocks/mock-server-data.json
+/specification/project.spec.yml
+/upload/
 .idea/*
 
 .DS_Store
