@@ -23,7 +23,7 @@ export class CommentEntity extends defaultClasses.TimeStamps {
   public text: string;
 
   @prop()
-  public date!: Date;
+  public publicationDate!: Date;
 
   @prop({
     required: true,

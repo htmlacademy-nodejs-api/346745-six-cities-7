@@ -7,7 +7,7 @@ export class CreateCommentDto {
   public text: string;
 
   @IsDateString({}, {message: CreateCommentMessages.date.invalidFormat})
-  public date: Date;
+  public publicationDate?: Date;
 
 
   @Min(1, { message: CreateCommentMessages.rating.minValue })
