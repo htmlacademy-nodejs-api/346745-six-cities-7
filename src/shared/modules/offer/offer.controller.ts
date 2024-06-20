@@ -6,7 +6,8 @@ import {
   DocumentExistsMiddleware,
   HttpMethod,
   ValidateObjectIdMiddleware,
-  ValidateDtoMiddleware
+  ValidateDtoMiddleware,
+  PrivateRouteMiddleware
 } from '../../libs/rest/index.js';
 import {Component} from '../../types/index.js';
 import {LoggerInterface} from '../../libs/logger/index.js';
@@ -44,7 +45,10 @@ export default class OfferController extends BaseController {
       path: '/',
       method: HttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateOfferDto)]
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateDtoMiddleware(CreateOfferDto)
+      ]
     });
 
     this.addRoute({
@@ -92,8 +96,8 @@ export default class OfferController extends BaseController {
     this.ok(res, fillDTO(OfferRdo, offers));
   }
 
-  public async create({body}: CreateOfferRequest, res: Response): Promise<void> {
-    const result = await this.offerService.create(body);
+  public async create({body, tokenPayload}: CreateOfferRequest, res: Response): Promise<void> {
+    const result = await this.offerService.create({...body, userId: tokenPayload.id});
     const offer = await this.offerService.findById(result.id);
     this.created(res, fillDTO(OfferRdo, offer));
   }
