@@ -7,7 +7,7 @@ export class CreateCommentDto {
   public text: string;
 
   @IsDateString({}, {message: CreateCommentMessages.date.invalidFormat})
-  public date: Date;
+  public publicationDate?: Date;
 
 
   @Min(1, { message: CreateCommentMessages.rating.minValue })
@@ -17,6 +17,5 @@ export class CreateCommentDto {
   @IsMongoId({message: CreateCommentMessages.offerId.invalidFormat})
   public offerId: string;
 
-  @IsMongoId({message: CreateCommentMessages.userId.invalidFormat})
   public userId: string;
 }
