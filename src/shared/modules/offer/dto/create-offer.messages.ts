@@ -14,7 +14,8 @@ export const CreateOfferValidationMessage = {
     invalid: 'type must be once of list cities',
   },
   previewPath: {
-    maxLength: 'Too short for field «image»',
+    invalidFormat: 'image is required',
+    maxLength: 'too long for field image. Maximum length is 256'
   },
   imageHouse: {
     invalid: 'Too short for field «imageHouse»',

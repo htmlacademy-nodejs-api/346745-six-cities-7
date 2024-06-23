@@ -1,7 +1,7 @@
 export type TMockServerData = {
   titles: string[];
   descriptions: string[];
-  imageHouses: string[];
+  imageHouse: string[];
   previewPaths: string[];
   users: string[];
   emails: string[];

@@ -1,6 +1,7 @@
 import { defaultClasses, getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
 import { createSHA256 } from '../../helpers/index.js';
 import { TUser } from '../../types/index.js';
+import {UserType} from '../../types/user-type.enum.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface UserEntity extends defaultClasses.Base {}
@@ -27,7 +28,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements TUser {
   public password: string;
 
   @prop({ required: true })
-  public userType: string;
+  public userType: UserType;
 
 
   constructor(userData: TUser) {
