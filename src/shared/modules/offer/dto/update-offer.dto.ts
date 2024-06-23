@@ -5,7 +5,7 @@ import {
   IsDateString,
   IsEnum,
   IsInt,
-  IsMongoId, IsOptional,
+  IsOptional, IsString,
   Max,
   MaxLength,
   Min,
@@ -17,71 +17,68 @@ export class UpdateOfferDto {
   @IsOptional()
   @MinLength(10, { message: CreateOfferValidationMessage.title.minLength })
   @MaxLength(100, { message: CreateOfferValidationMessage.title.maxLength })
-  public title: string;
+  public title?: string;
 
   @IsOptional()
   @MinLength(20, { message: CreateOfferValidationMessage.description.minLength })
   @MaxLength(1024, { message: CreateOfferValidationMessage.description.maxLength })
-  public description: string;
+  public description?: string;
 
   @IsOptional()
   @IsDateString({}, { message: CreateOfferValidationMessage.postDate.invalidFormat })
-  public postDate: Date;
+  public postDate?: Date;
 
   @IsOptional()
   @IsEnum(City, { message: CreateOfferValidationMessage.city.invalid })
-  public city: City;
+  public city?: City;
 
   @IsOptional()
+  @IsString({ message: CreateOfferValidationMessage.previewPath.invalidFormat })
   @MaxLength(256, { message: CreateOfferValidationMessage.previewPath.maxLength })
-  public previewPath: string;
+  public previewPath?: string;
 
   // @IsArray({ message: CreateOfferValidationMessage.imageHouse.invalid })
   // @ValidateNested({ each: true })
-  public imageHouse: string[];
+  public imageHouse?: string[];
 
   @IsOptional()
   @IsBoolean({message: CreateOfferValidationMessage.premium.invalid})
-  public premium: boolean;
+  public premium?: boolean;
 
   @IsOptional()
   @IsBoolean({message: CreateOfferValidationMessage.favorites.invalid})
-  public favorites: boolean;
+  public favorites?: boolean;
 
   @IsOptional()
   @Min(1, { message: CreateOfferValidationMessage.rating.minValue })
   @Max(5, { message: CreateOfferValidationMessage.rating.maxValue })
-  public rating: number;
+  public rating?: number;
 
   @IsOptional()
   @IsEnum(HouseType, { message: CreateOfferValidationMessage.typeHouse.invalid })
-  public typeHouse: HouseType;
+  public typeHouse?: HouseType;
 
   @IsOptional()
   @IsInt({ message: CreateOfferValidationMessage.room.invalidFormat })
   @Min(1, { message: CreateOfferValidationMessage.room.minValue })
   @Max(8, { message: CreateOfferValidationMessage.room.maxValue })
-  public room: number;
+  public room?: number;
 
 
   @IsOptional()
   @IsInt({ message: CreateOfferValidationMessage.guests.invalidFormat })
   @Min(1, { message: CreateOfferValidationMessage.guests.minValue })
   @Max(10, { message: CreateOfferValidationMessage.guests.maxValue })
-  public guests: number;
+  public guests?: number;
 
   @IsOptional()
   @IsInt({ message: CreateOfferValidationMessage.price.invalidFormat })
   @Min(100, { message: CreateOfferValidationMessage.price.minValue })
   @Max(100000, { message: CreateOfferValidationMessage.price.maxValue })
-  public price: number;
+  public price?: number;
 
   // @IsArray({ message: CreateOfferValidationMessage.amenities.invalidFormat })
-  public amenities: Amenities;
+  public amenities?: Amenities;
 
-  @IsOptional()
-  @IsMongoId({ message: CreateOfferValidationMessage.userId.invalidId })
-  public userId: string;
-
-  public coordinates: TCoordinates;
+  public coordinates?: TCoordinates;
 }

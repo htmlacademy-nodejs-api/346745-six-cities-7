@@ -4,6 +4,7 @@ import { createReadStream } from 'node:fs';
 import { FileReader } from './file-reader.interface.js';
 import { TOffer, TUser } from '../../types/index.js';
 import { Amenities, City, HouseType } from '../../types/offer-type.enum.js';
+import {UserType} from '../../types/user-type.enum.js';
 
 export class TSVFileReader extends EventEmitter implements FileReader {
   private CHUNK_SIZE = 16384; // 16KB
@@ -54,7 +55,7 @@ export class TSVFileReader extends EventEmitter implements FileReader {
       guests: this.parsePrice(guests),
       price: this.parsePrice(price),
       amenities: Amenities[amenities as 'Breakfast' | 'AirConditioning' | 'LaptopFriendlyWorkspace' | 'BabySeat' | 'Washer' | 'Towels' | 'Fridge'],
-      user: this.parseUser(name, email, avatarPath, password, userType),
+      user: this.parseUser(name, email, avatarPath, password, userType as UserType),
       coordinates: {latitude: Number(latitude), longitude: Number(longitude)}
     };
   }
@@ -67,7 +68,7 @@ export class TSVFileReader extends EventEmitter implements FileReader {
     return value === 'true';
   }
 
-  private parseUser(name: string, email: string, avatarPath: string, password: string, userType: string): TUser {
+  private parseUser(name: string, email: string, avatarPath: string, password: string, userType: UserType): TUser {
     return { name, email, avatarPath, password, userType };
   }
 

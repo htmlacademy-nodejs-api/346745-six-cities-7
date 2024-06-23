@@ -7,7 +7,7 @@ import {
   HttpMethod,
   ValidateObjectIdMiddleware,
   ValidateDtoMiddleware,
-  PrivateRouteMiddleware
+  PrivateRouteMiddleware, UploadFileMiddleware
 } from '../../libs/rest/index.js';
 import {Component} from '../../types/index.js';
 import {LoggerInterface} from '../../libs/logger/index.js';
@@ -20,13 +20,16 @@ import {UpdateOfferDto} from './dto/update-offer.dto.js';
 import {CommentRdo, CommentService} from '../comment/index.js';
 import {DEFAULT_DISCUSSED_OFFER_COUNT, DEFAULT_NEW_OFFER_COUNT, DEFAULT_OFFER_COUNT} from './offer.constant.js';
 import {CreateOfferDto} from './dto/create-offer.dto.js';
+import { ConfigInterface, TRestSchema } from '../../libs/config/index.js';
+import { UploadImageRdo } from './rdo/upload-image.rdo.js';
 
 @injectable()
 export default class OfferController extends BaseController {
   constructor(
     @inject(Component.Logger) logger: LoggerInterface,
     @inject(Component.OfferService) private readonly offerService: OfferService,
-    @inject(Component.CommentService) private readonly commentService: CommentService
+    @inject(Component.CommentService) private readonly commentService: CommentService,
+    @inject(Component.Config) private readonly configService: ConfigInterface<TRestSchema>,
   ) {
     super(logger);
 
@@ -82,6 +85,16 @@ export default class OfferController extends BaseController {
 
     this.addRoute({path: '/bundles/new', method: HttpMethod.Get, handler: this.getNew});
     this.addRoute({path: '/bundles/discussed', method: HttpMethod.Get, handler: this.getDiscussed});
+    this.addRoute({
+      path: '/:offerId/image',
+      method: HttpMethod.Post,
+      handler: this.uploadImage,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateObjectIdMiddleware('offerId'),
+        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'image'),
+      ]
+    });
   }
 
   public async show({params}: Request<ParamOfferId>, res: Response): Promise<void> {
@@ -128,5 +141,12 @@ export default class OfferController extends BaseController {
   public async getDiscussed(_req: Request, res: Response) {
     const discussedOffers = await this.offerService.findDiscussed(DEFAULT_DISCUSSED_OFFER_COUNT);
     this.ok(res, fillDTO(OfferRdo, discussedOffers));
+  }
+
+  public async uploadImage({ params, file } : Request<ParamOfferId>, res: Response) {
+    const { offerId } = params;
+    const updateDto = { previewPath: file?.filename };
+    await this.offerService.updateById(offerId, updateDto);
+    this.created(res, fillDTO(UploadImageRdo, updateDto));
   }
 }

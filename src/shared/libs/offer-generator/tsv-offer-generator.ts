@@ -25,7 +25,7 @@ export class TSVOfferGenerator implements IOfferGenerator {
       .subtract(generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY), 'day')
       .toISOString();
     const previewPath = getRandomItem<string>(this.mockData.previewPaths);
-    const imageHouses = getRandomItem<string>(this.mockData.imageHouses);
+    const imageHouse = getRandomItem<string>(this.mockData.imageHouse);
     const premium = getRandomBoolean();
     const favorites = getRandomBoolean();
     const houseType = getRandomItem(Object.values(HouseType));
@@ -49,7 +49,7 @@ export class TSVOfferGenerator implements IOfferGenerator {
       postDate,
       city,
       previewPath,
-      imageHouses,
+      imageHouse,
       premium,
       favorites,
       rating,
